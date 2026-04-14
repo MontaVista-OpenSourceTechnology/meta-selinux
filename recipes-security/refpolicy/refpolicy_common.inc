@@ -103,8 +103,6 @@ PACKAGE_ARCH = "${MACHINE_ARCH}"
 
 inherit python3native
 
-PARALLEL_MAKE = ""
-
 DEFAULT_ENFORCING ??= "enforcing"
 
 POLICY_NAME ?= "${POLICY_TYPE}"
