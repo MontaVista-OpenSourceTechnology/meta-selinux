@@ -97,6 +97,7 @@ DEPENDS = "bzip2-replacement-native checkpolicy-native policycoreutils-native se
 
 RDEPENDS:${PN}-dev = " \
     python3-core \
+    m4 \
     "
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
