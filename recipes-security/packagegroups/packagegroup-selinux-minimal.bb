@@ -20,7 +20,7 @@ RDEPENDS:${PN} = "\
 	policycoreutils-sestatus \
 	policycoreutils-setfiles \
 	selinux-autorelabel \
-	selinux-init \
+	${@bb.utils.contains('DISTRO_FEATURES', 'sysvinit', 'selinux-init', '', d)} \
 	selinux-labeldev \
 	refpolicy \
 "
