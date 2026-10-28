@@ -26,6 +26,16 @@ Please keep this list in alphabetical order.
 Maintainers List (try to look for most precise areas first)
 
 COMMON
+M:	Chen Qi <chenqi_hycx@cetc.com.cn>
+L:	yocto-patches@lists.yoctoproject.org
+Q:	https://patchwork.yoctoproject.org/project/yocto/
+S:	Maintained
+F:	conf
+F:	classes
+F:	dynamic-layers
+F:	recipes-*
+
+COMMON
 M:	Joe MacDonald <joe.macdonald@siemens.com>
 F:	conf
 F:	classes
