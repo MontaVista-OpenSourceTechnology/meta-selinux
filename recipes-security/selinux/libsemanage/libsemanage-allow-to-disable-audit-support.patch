@@ -8,12 +8,12 @@ Upstream-Status: Inappropriate [embedded specific]
 Signed-off-by: Wenzong Fan <wenzong.fan@windriver.com>
 ---
  libsemanage/src/Makefile        | 10 +++++++++-
- libsemanage/src/seusers_local.c | 13 +++++++++++++
+ libsemanage/src/seusers_local.c | 10 ++++++++++
  libsemanage/tests/Makefile      | 10 +++++++++-
- 3 files changed, 31 insertions(+), 2 deletions(-)
+ 3 files changed, 28 insertions(+), 2 deletions(-)
 
 diff --git a/libsemanage/src/Makefile b/libsemanage/src/Makefile
-index fa3449fb..66c3010f 100644
+index 63c1499c..f6f76f0d 100644
 --- a/libsemanage/src/Makefile
 +++ b/libsemanage/src/Makefile
 @@ -27,6 +27,14 @@ ifeq ($(DEBUG),1)
@@ -31,17 +31,17 @@ index fa3449fb..66c3010f 100644
  LEX = flex
  LFLAGS = -s
  YACC = bison
-@@ -93,7 +101,7 @@ $(LIBA): $(OBJS)
+@@ -98,7 +106,7 @@ $(LIBA): $(OBJS)
  	$(RANLIB) $@
  
  $(LIBSO): $(LOBJS)
--	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -shared -o $@ $^ -L../../libselinux/src -lsepol -laudit -lselinux -lbz2 -Wl,-soname,$(LIBSO),--version-script=libsemanage.map,-z,defs
-+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -shared -o $@ $^ -L../../libselinux/src -lsepol $(LIBAUDIT) -lselinux -lbz2 -Wl,-soname,$(LIBSO),--version-script=libsemanage.map,-z,defs
+-	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -fPIC -shared -o $@ $^ -L../../libselinux/src -lsepol -laudit -lselinux -lbz2 -Wl,-soname,$(LIBSO),--version-script=libsemanage.map,-z,defs
++	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -fPIC -shared -o $@ $^ -L../../libselinux/src -lsepol $(LIBAUDIT) -lselinux -lbz2 -Wl,-soname,$(LIBSO),--version-script=libsemanage.map,-z,defs
  	ln -sf $@ $(TARGET)
  
  $(LIBPC): $(LIBPC).in ../VERSION
 diff --git a/libsemanage/src/seusers_local.c b/libsemanage/src/seusers_local.c
-index eb3f82bc..45da8257 100644
+index 865fe461..b959154c 100644
 --- a/libsemanage/src/seusers_local.c
 +++ b/libsemanage/src/seusers_local.c
 @@ -8,7 +8,11 @@ typedef struct semanage_seuser record_t;
@@ -56,44 +56,43 @@ index eb3f82bc..45da8257 100644
  #include <errno.h>
  #include "user_internal.h"
  #include "seuser_internal.h"
-@@ -56,6 +60,7 @@ static char *semanage_user_roles(semanage_handle_t * handle, const char *sename)
+@@ -57,6 +61,7 @@ static char *semanage_user_roles(semanage_handle_t *handle, const char *sename)
  	return roles;
  }
  
 +#ifndef DISABLE_AUDIT
- static int semanage_seuser_audit(semanage_handle_t * handle,
- 			  const semanage_seuser_t * seuser,
- 			  const semanage_seuser_t * previous,
-@@ -120,6 +125,7 @@ err:
+ static int semanage_seuser_audit(semanage_handle_t *handle,
+ 				 const semanage_seuser_t *seuser,
+ 				 const semanage_seuser_t *previous,
+@@ -123,6 +128,7 @@ err:
  	free(proles);
  	return rc;
  }
 +#endif
  
- int semanage_seuser_modify_local(semanage_handle_t * handle,
- 				 const semanage_seuser_key_t * key,
-@@ -165,8 +171,11 @@ int semanage_seuser_modify_local(semanage_handle_t * handle,
- 	(void) semanage_seuser_query(handle, key, &previous);
+ int semanage_seuser_modify_local(semanage_handle_t *handle,
+ 				 const semanage_seuser_key_t *key,
+@@ -170,9 +176,11 @@ int semanage_seuser_modify_local(semanage_handle_t *handle,
+ 	(void)semanage_seuser_query(handle, key, &previous);
  	handle->msg_callback = callback;
  	rc = dbase_modify(handle, dconfig, key, new);
-+
 +#ifndef DISABLE_AUDIT
- 	if (semanage_seuser_audit(handle, new, previous, AUDIT_ROLE_ASSIGN, rc == 0) < 0)
+ 	if (semanage_seuser_audit(handle, new, previous, AUDIT_ROLE_ASSIGN,
+ 				  rc == 0) < 0)
  		rc = -1;
 +#endif
  err:
  	if (previous)
  		semanage_seuser_free(previous);
-@@ -182,8 +191,12 @@ int semanage_seuser_del_local(semanage_handle_t * handle,
+@@ -188,9 +196,11 @@ int semanage_seuser_del_local(semanage_handle_t *handle,
  	dbase_config_t *dconfig = semanage_seuser_dbase_local(handle);
  	rc = dbase_del(handle, dconfig, key);
  	semanage_seuser_query(handle, key, &seuser);
-+
 +#ifndef DISABLE_AUDIT
- 	if (semanage_seuser_audit(handle, NULL, seuser, AUDIT_ROLE_REMOVE, rc == 0) < 0)
+ 	if (semanage_seuser_audit(handle, NULL, seuser, AUDIT_ROLE_REMOVE,
+ 				  rc == 0) < 0)
  		rc = -1;
 +#endif
-+
  	if (seuser)
  		semanage_seuser_free(seuser);
  	return rc;
@@ -121,6 +120,3 @@ index 241ff17a..fa03fb66 100644
  
  OBJECTS = $(SOURCES:.c=.o)
  POLICIES = $(CILS:.cil=.policy)
--- 
-2.34.1
-

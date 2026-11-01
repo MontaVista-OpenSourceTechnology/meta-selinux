@@ -14,13 +14,13 @@ FILESEXTRAPATHS:prepend := "${THISDIR}/libselinux:"
 SRC_URI += "\
         file://0001-Makefile-fix-python-modules-install-path-for-multili.patch;patchdir=.. \
         file://0002-Do-not-use-PYCEXT-and-rely-on-the-installed-file-nam.patch;patchdir=.. \
-        file://0003-libselinux-restore-drop-the-obsolete-LSF-transitiona.patch;patchdir=.. \
         file://0004-libselinux-Replace-PyString_FromString-with-PyUnicode.patch;patchdir=.. \
         "
 
 S = "${UNPACKDIR}/${BP}/libselinux"
 
-DEPENDS = "libsepol libpcre2 swig-native python3-setuptools-scm-native python3-pip-native"
+DEPENDS = "libsepol libpcre2 swig-native python3-setuptools-scm-native python3-pip-native \
+           python3-build-native python3-wheel-native"
 DEPENDS:append:libc-musl = " fts"
 
 RDEPENDS:${PN} = "libselinux python3-core python3-shell"

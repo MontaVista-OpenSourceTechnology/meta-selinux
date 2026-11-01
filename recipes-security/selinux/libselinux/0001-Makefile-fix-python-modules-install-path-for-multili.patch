@@ -11,18 +11,15 @@ Signed-off-by: Yi Zhao <yi.zhao@windriver.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/libselinux/src/Makefile b/libselinux/src/Makefile
-index 0dbba7f4..d8011c99 100644
+index 9ecdbd4d..5158959c 100644
 --- a/libselinux/src/Makefile
 +++ b/libselinux/src/Makefile
-@@ -198,7 +198,7 @@ ifneq ($(DISABLE_SHARED),y)
+@@ -196,7 +196,7 @@ ifneq ($(DISABLE_SHARED),y)
  endif
  
  install-pywrap: pywrap
--	CFLAGS="$(CPPFLAGS) $(CFLAGS) $(SWIG_CFLAGS)" $(PYTHON) -m pip install --no-build-isolation --prefix=$(PREFIX) `test -n "$(DESTDIR)" && echo --root $(DESTDIR) --ignore-installed --no-deps` $(PYTHON_SETUP_ARGS) .
-+	CFLAGS="$(CPPFLAGS) $(CFLAGS) $(SWIG_CFLAGS)" $(PYTHON) -m pip install --no-build-isolation --prefix=$(PREFIX) --root $(DESTDIR) --ignore-installed --no-deps $(PYTHON_SETUP_ARGS) .
+-	$(PYTHON) -m pip install --no-build-isolation --force-reinstall --prefix=$(PREFIX) `test -n "$(DESTDIR)" && echo --root $(DESTDIR) --ignore-installed --no-deps` dist/*.whl
++	$(PYTHON) -m pip install --no-build-isolation --force-reinstall --prefix=$(PREFIX) --root $(DESTDIR) --ignore-installed --no-deps dist/*.whl
  	install -m 644 $(SWIGPYOUT) $(DESTDIR)$(PYTHONLIBDIR)/selinux/__init__.py
  	ln -sf --relative $(DESTDIR)$(PYTHONLIBDIR)/selinux/_selinux$(PYCEXT) $(DESTDIR)$(PYTHONLIBDIR)/_selinux$(PYCEXT)
  
--- 
-2.34.1
-

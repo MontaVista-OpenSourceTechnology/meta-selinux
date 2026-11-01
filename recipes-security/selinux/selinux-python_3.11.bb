@@ -11,12 +11,12 @@ require selinux_common.inc
 inherit python3targetconfig
 
 SRC_URI += "file://0001-sepolicy-fix-install-path-for-new-pymodule-sepolicy.patch;patchdir=.. \
-            file://0002-sepolicy-set-conf.substitutions-releasever-to-empty-.patch;patchdir=.. \
            "
 
 S = "${UNPACKDIR}/${BP}/python"
 
-DEPENDS = "libsepol libselinux gettext-native python3-setuptools-scm-native python3-pip-native"
+DEPENDS = "libsepol libselinux gettext-native python3-setuptools-scm-native python3-pip-native \
+           python3-build-native python3-wheel-native"
 
 RDEPENDS:${PN} = "\
         python3-core \

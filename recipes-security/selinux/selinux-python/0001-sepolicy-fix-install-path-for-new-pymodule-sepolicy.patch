@@ -13,18 +13,15 @@ Signed-off-by: Yi Zhao <yi.zhao@windriver.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/python/sepolicy/Makefile b/python/sepolicy/Makefile
-index 1a26cfdc..6e40691d 100644
+index 51812980..33a595d1 100644
 --- a/python/sepolicy/Makefile
 +++ b/python/sepolicy/Makefile
-@@ -27,7 +27,7 @@ test:
+@@ -26,7 +26,7 @@ test:
  	@$(PYTHON) test_sepolicy.py -v
  
- install:
--	$(PYTHON) -m pip install --prefix=$(PREFIX) `test -n "$(DESTDIR)" && echo --root $(DESTDIR) --ignore-installed --no-deps` $(PYTHON_SETUP_ARGS) .
-+	$(PYTHON) -m pip install --prefix=$(PREFIX) --root $(DESTDIR) --ignore-installed --no-deps $(PYTHON_SETUP_ARGS) .
+ install: python-build
+-	$(PYTHON) -m pip install --no-build-isolation --force-reinstall --prefix=$(PREFIX) `test -n "$(DESTDIR)" && echo --root $(DESTDIR) --ignore-installed --no-deps` dist/*.whl
++	$(PYTHON) -m pip install --no-build-isolation --force-reinstall --prefix=$(PREFIX) --root $(DESTDIR) --ignore-installed --no-deps dist/*.whl
  	[ -d $(DESTDIR)$(BINDIR) ] || mkdir -p $(DESTDIR)$(BINDIR)
  	install -m 755 sepolicy.py $(DESTDIR)$(BINDIR)/sepolicy
  	(cd $(DESTDIR)$(BINDIR); ln -sf sepolicy sepolgen)
--- 
-2.34.1
-

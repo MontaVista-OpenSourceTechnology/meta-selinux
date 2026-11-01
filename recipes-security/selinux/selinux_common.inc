@@ -1,7 +1,7 @@
 HOMEPAGE = "https://github.com/SELinuxProject"
 
 SRC_URI = "git://github.com/SELinuxProject/selinux.git;branch=main;protocol=https"
-SRCREV = "ca10fc4204ed60540d41d2499127c18ad0643f9e"
+SRCREV = "2233a23a4d4f1bf29054037babec13f30d038e65"
 
 require conf/selinux_refpolicy_common.inc
 
