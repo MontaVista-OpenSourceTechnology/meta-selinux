@@ -11,6 +11,7 @@ require selinux_common.inc
 
 SRC_URI += "file://sandbox-de-bashify.patch;patchdir=.. \
             file://CVE-2026-59676.patch;patchdir=.. \
+            file://CVE-2026-59677.patch;patchdir=.. \
            "
 
 S = "${UNPACKDIR}/${BP}/sandbox"
