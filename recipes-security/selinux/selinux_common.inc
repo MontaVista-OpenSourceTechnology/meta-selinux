@@ -23,8 +23,10 @@ do_install() {
 CVE_PRODUCT ?= "selinux_project:selinux"
 
 CVE_STATUS[CVE-2026-59676] = "not-applicable-config: The vulnerable seunshare utility is built by selinux-sandbox."
+CVE_STATUS[CVE-2026-59677] = "not-applicable-config: The vulnerable seunshare utility is built by selinux-sandbox."
 
 python __anonymous() {
     if d.getVar("BPN") == "selinux-sandbox":
         d.delVarFlag("CVE_STATUS", "CVE-2026-59676")
+        d.delVarFlag("CVE_STATUS", "CVE-2026-59677")
 }
