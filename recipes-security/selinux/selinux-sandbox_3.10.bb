@@ -10,6 +10,7 @@ LIC_FILES_CHKSUM = "file://${S}/LICENSE;md5=393a5ca445f6965873eca0259a17f833"
 require selinux_common.inc
 
 SRC_URI += "file://sandbox-de-bashify.patch;patchdir=.. \
+            file://CVE-2026-59676.patch;patchdir=.. \
            "
 
 S = "${UNPACKDIR}/${BP}/sandbox"
