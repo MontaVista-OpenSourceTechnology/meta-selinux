@@ -1,4 +1,4 @@
-From e0221dfaf60dc6dedbf04247fabd5b13490bbabf Mon Sep 17 00:00:00 2001
+From 1cb7a914b570ca8dd51ea7b4e6a4ffadedde709d Mon Sep 17 00:00:00 2001
 From: Joe MacDonald <joe_macdonald@mentor.com>
 Date: Thu, 28 Mar 2019 20:48:10 -0400
 Subject: [PATCH] fc/subs/busybox: set aliases for bin, sbin and usr
@@ -15,19 +15,22 @@ Signed-off-by: Yi Zhao <yi.zhao@windriver.com>
  1 file changed, 6 insertions(+)
 
 diff --git a/config/file_contexts.subs_dist b/config/file_contexts.subs_dist
-index d64580e89..8a5274283 100644
+index 8b9423db8..bae4ef439 100644
 --- a/config/file_contexts.subs_dist
 +++ b/config/file_contexts.subs_dist
-@@ -40,3 +40,9 @@
- # volatile hierarchy.
+@@ -41,6 +41,12 @@
  /var/volatile/log /var/log
  /var/volatile/tmp /var/tmp
-+
+ 
 +# busybox aliases
 +# quickly match up the busybox built-in tree to the base filesystem tree
 +/usr/lib/busybox/bin /usr/bin
 +/usr/lib/busybox/sbin /usr/bin
 +/usr/lib/busybox/usr /usr
--- 
-2.34.1
++
+ # systemd system extension (systemd-sysext) staging dirs merge onto /usr and /opt,
+ # and systemd configuration extension (systemd-confext) staging dirs merge onto /etc.
+ # The staged trees are overlaid onto the host tree with overlayfs, so they must carry
 
+-- 
+2.43.0

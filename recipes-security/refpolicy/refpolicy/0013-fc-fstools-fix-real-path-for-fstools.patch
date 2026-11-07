@@ -1,4 +1,4 @@
-From 3ed3519c26ea0146415bf915a78bad55086abbde Mon Sep 17 00:00:00 2001
+From 4beb1c28718bce5b470ea886c2cd0a38ca7a7463 Mon Sep 17 00:00:00 2001
 From: Wenzong Fan <wenzong.fan@windriver.com>
 Date: Mon, 27 Jan 2014 03:54:01 -0500
 Subject: [PATCH] fc/fstools: fix real path for fstools
@@ -14,7 +14,7 @@ Signed-off-by: Yi Zhao <yi.zhao@windriver.com>
  1 file changed, 11 insertions(+)
 
 diff --git a/policy/modules/system/fstools.fc b/policy/modules/system/fstools.fc
-index ece09e6b4..aad5a608e 100644
+index 8386937c4..02adc5400 100644
 --- a/policy/modules/system/fstools.fc
 +++ b/policy/modules/system/fstools.fc
 @@ -1,7 +1,9 @@
@@ -27,7 +27,7 @@ index ece09e6b4..aad5a608e 100644
  /usr/bin/btrfs			--	gen_context(system_u:object_r:fsadm_exec_t,s0)
  /usr/bin/cfdisk			--	gen_context(system_u:object_r:fsadm_exec_t,s0)
  /usr/bin/clubufflush		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
-@@ -15,23 +17,29 @@
+@@ -15,10 +17,13 @@
  /usr/bin/e2mmpstatus		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
  /usr/bin/fatsort		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
  /usr/bin/fdisk			--	gen_context(system_u:object_r:fsadm_exec_t,s0)
@@ -41,6 +41,7 @@ index ece09e6b4..aad5a608e 100644
  /usr/bin/install-mbr		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
  /usr/bin/jfs_.*			--	gen_context(system_u:object_r:fsadm_exec_t,s0)
  /usr/bin/losetup.*		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
+@@ -26,13 +31,16 @@
  /usr/bin/lsraid			--	gen_context(system_u:object_r:fsadm_exec_t,s0)
  /usr/bin/mkdosfs		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
  /usr/bin/mke2fs			--	gen_context(system_u:object_r:fsadm_exec_t,s0)
@@ -57,7 +58,7 @@ index ece09e6b4..aad5a608e 100644
  /usr/bin/partx			--	gen_context(system_u:object_r:fsadm_exec_t,s0)
  /usr/bin/raidautorun		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
  /usr/bin/raidstart		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
-@@ -43,8 +51,10 @@
+@@ -44,8 +52,10 @@
  /usr/bin/sfdisk			--	gen_context(system_u:object_r:fsadm_exec_t,s0)
  /usr/bin/smartctl		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
  /usr/bin/swapoff		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
@@ -68,7 +69,7 @@ index ece09e6b4..aad5a608e 100644
  /usr/bin/zdb			--	gen_context(system_u:object_r:fsadm_exec_t,s0)
  /usr/bin/zhack			--	gen_context(system_u:object_r:fsadm_exec_t,s0)
  /usr/bin/zinject		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
-@@ -53,6 +63,7 @@
+@@ -54,6 +64,7 @@
  /usr/bin/ztest			--	gen_context(system_u:object_r:fsadm_exec_t,s0)
  
  /usr/bin/fstrim		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
@@ -76,6 +77,6 @@ index ece09e6b4..aad5a608e 100644
  
  ifdef(`distro_gentoo',`
  /var/db/smartmontools(/.*)?		gen_context(system_u:object_r:fsadm_db_t,s0)
--- 
-2.34.1
 
+-- 
+2.43.0

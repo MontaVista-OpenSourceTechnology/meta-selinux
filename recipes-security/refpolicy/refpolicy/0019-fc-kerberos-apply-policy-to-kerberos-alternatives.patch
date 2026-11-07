@@ -1,4 +1,4 @@
-From c5f2bec748a7afbb6ea6ff4fdb2e729f749d7e99 Mon Sep 17 00:00:00 2001
+From 7d14d563c9e6256274e9b31068b8ae42d2fc4a08 Mon Sep 17 00:00:00 2001
 From: Yi Zhao <yi.zhao@windriver.com>
 Date: Fri, 15 Nov 2019 10:55:05 +0800
 Subject: [PATCH] fc/kerberos: apply policy to kerberos alternatives
@@ -11,7 +11,7 @@ Signed-off-by: Yi Zhao <yi.zhao@windriver.com>
  1 file changed, 10 insertions(+)
 
 diff --git a/policy/modules/services/kerberos.fc b/policy/modules/services/kerberos.fc
-index 81627d2db..4966b06d4 100644
+index aae6c841d..9afe60ec4 100644
 --- a/policy/modules/services/kerberos.fc
 +++ b/policy/modules/services/kerberos.fc
 @@ -12,9 +12,13 @@ HOME_DIR/\.k5login	--	gen_context(system_u:object_r:krb5_home_t,s0)
@@ -26,9 +26,9 @@ index 81627d2db..4966b06d4 100644
 +/usr/bin/kadmin\.local	--	gen_context(system_u:object_r:kadmind_exec_t,s0)
 +/usr/bin/kpropd	--	gen_context(system_u:object_r:kpropd_exec_t,s0)
  
- /usr/kerberos/sbin/krb5kdc	--	gen_context(system_u:object_r:krb5kdc_exec_t,s0)
- /usr/kerberos/sbin/kadmind	--	gen_context(system_u:object_r:kadmind_exec_t,s0)
-@@ -39,6 +43,12 @@ HOME_DIR/\.k5login	--	gen_context(system_u:object_r:krb5_home_t,s0)
+ /usr/lib/systemd/system/kadmin\.service	--	gen_context(system_u:object_r:kerberos_unit_t,s0)
+ /usr/lib/systemd/system/krb5kdc\.service	--	gen_context(system_u:object_r:kerberos_unit_t,s0)
+@@ -42,6 +46,12 @@ HOME_DIR/\.k5login	--	gen_context(system_u:object_r:krb5_home_t,s0)
  /var/kerberos/krb5kdc/principal.*	gen_context(system_u:object_r:krb5kdc_principal_t,s0)
  /var/kerberos/krb5kdc/principal.*\.ok	--	gen_context(system_u:object_r:krb5kdc_lock_t,s0)
  
@@ -41,6 +41,6 @@ index 81627d2db..4966b06d4 100644
  /var/log/krb5kdc\.log.*	--	gen_context(system_u:object_r:krb5kdc_log_t,s0)
  /var/log/kadmin\.log.*	--	gen_context(system_u:object_r:kadmind_log_t,s0)
  /var/log/kadmind\.log.*	--	gen_context(system_u:object_r:kadmind_log_t,s0)
--- 
-2.34.1
 
+-- 
+2.43.0
