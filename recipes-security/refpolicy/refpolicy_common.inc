@@ -193,6 +193,7 @@ set_policy_booleans() {
 }
 
 do_compile() {
+    oe_runmake bare
     if [ -f "${WORKDIR}/modules.conf" ] ; then
         cp -f ${WORKDIR}/modules.conf ${S}/policy/modules.conf
     fi
