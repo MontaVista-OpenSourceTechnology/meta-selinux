@@ -1,7 +1,8 @@
-From f94cd726509a88f8efd72b175fe3079544e9ef26 Mon Sep 17 00:00:00 2001
+From 03f2558a168c4ff3fa879774d7cb416bcc991225 Mon Sep 17 00:00:00 2001
 From: Yi Zhao <yi.zhao@windriver.com>
 Date: Fri, 6 Feb 2026 22:13:03 +0800
 Subject: [PATCH] systemd: allow domain used for login program to connect to
+
  systemd-logind over unix socket
 
 Fix the following AVC denials:
@@ -25,10 +26,10 @@ Signed-off-by: Yi Zhao <yi.zhao@windriver.com>
  3 files changed, 22 insertions(+)
 
 diff --git a/policy/modules/system/authlogin.if b/policy/modules/system/authlogin.if
-index 82d3f6684..db1fcc344 100644
+index 5add629ac..6518f230e 100644
 --- a/policy/modules/system/authlogin.if
 +++ b/policy/modules/system/authlogin.if
-@@ -230,6 +230,7 @@ interface(`auth_login_pgm_domain',`
+@@ -233,6 +233,7 @@ interface(`auth_login_pgm_domain',`
  		systemd_read_logind_state($1)
  		systemd_write_inherited_logind_sessions_pipes($1)
  		systemd_use_passwd_agent_fds($1)
@@ -37,7 +38,7 @@ index 82d3f6684..db1fcc344 100644
  ')
  
 diff --git a/policy/modules/system/systemd.fc b/policy/modules/system/systemd.fc
-index 505a054ff..e44d82a88 100644
+index dacf27a49..6622a1c74 100644
 --- a/policy/modules/system/systemd.fc
 +++ b/policy/modules/system/systemd.fc
 @@ -127,6 +127,7 @@ HOME_ROOT/.+\.home	--	gen_context(system_u:object_r:systemd_homed_storage_t,s0)
@@ -46,13 +47,13 @@ index 505a054ff..e44d82a88 100644
  /run/systemd/io\.systemd\.NamespaceResource	-s	gen_context(system_u:object_r:systemd_nsresourced_runtime_t,s0)
 +/run/systemd/io\.systemd\.Login	-s	gen_context(system_u:object_r:systemd_logind_runtime_t,s0)
  
- /run/tmpfiles\.d	-d	gen_context(system_u:object_r:systemd_tmpfiles_conf_t,s0)
- /run/tmpfiles\.d/.*		<<none>>
+ /run/sysctl\.d(/.*)?	gen_context(system_u:object_r:systemd_sysctl_runtime_t,s0)
+ 
 diff --git a/policy/modules/system/systemd.if b/policy/modules/system/systemd.if
-index b67b78a69..cc57a29f4 100644
+index 3231f5c82..777376536 100644
 --- a/policy/modules/system/systemd.if
 +++ b/policy/modules/system/systemd.if
-@@ -1601,6 +1601,26 @@ interface(`systemd_inherit_logind_fds',`
+@@ -1679,6 +1679,26 @@ interface(`systemd_inherit_logind_fds',`
  	allow systemd_logind_t $1:fd use;
  ')
  
@@ -79,6 +80,3 @@ index b67b78a69..cc57a29f4 100644
  ######################################
  ## <summary>
  ##      Watch logind sessions dirs.
--- 
-2.34.1
-

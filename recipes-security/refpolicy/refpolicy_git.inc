@@ -2,7 +2,7 @@ PV = "2.20260922+git"
 
 SRC_URI = "git://github.com/SELinuxProject/refpolicy.git;protocol=https;branch=main;name=refpolicy;destsuffix=refpolicy"
 
-SRCREV_refpolicy = "8f247dafb92bd12cbfb53a11ff58be17a88df86a"
+SRCREV_refpolicy = "c89bd1537a63c4a332945897fa34bed81f2921a3"
 
 UPSTREAM_CHECK_GITTAGREGEX = "RELEASE_(?P<pver>\d+_\d+)"
 
