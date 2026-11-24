@@ -38,7 +38,7 @@ SRC_URI += " \
         file://0020-fc-ldap-apply-policy-to-ldap-alternatives.patch \
         file://0021-fc-postgresql-apply-policy-to-postgresql-alternative.patch \
         file://0022-fc-usermanage-apply-policy-to-usermanage-alternative.patch \
-        file://0023-fc-getty-add-file-context-to-start_getty.patch \
+        file://0023-fc-corecommands-label-start_getty-as-bin_t.patch \
         file://0024-fc-vlock-apply-policy-to-vlock-alternatives.patch \
         file://0025-fc-add-fcontext-for-init-scripts-and-systemd-service.patch \
         file://0026-file_contexts.subs_dist-set-aliase-for-root-director.patch \
