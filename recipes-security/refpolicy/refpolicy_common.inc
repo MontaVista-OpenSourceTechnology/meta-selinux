@@ -10,6 +10,7 @@ RPROVIDES:${PN} = "refpolicy"
 SRC_URI += "file://customizable_types \
             file://setrans-mls.conf \
             file://setrans-mcs.conf \
+            file://selint.conf \
            "
 
 # Base patches applied to all Yocto-based platforms.  Your own version of
@@ -94,7 +95,7 @@ FILES:${PN}-dev =+ " \
 
 EXTRANATIVEPATH += "bzip2-native"
 
-DEPENDS = "bzip2-replacement-native checkpolicy-native policycoreutils-native semodule-utils-native m4-native"
+DEPENDS = "bzip2-replacement-native checkpolicy-native policycoreutils-native semodule-utils-native m4-native selint-native"
 
 RDEPENDS:${PN}-dev = " \
     python3-core \
@@ -191,6 +192,14 @@ set_policy_booleans() {
             "${S}/policy/booleans.conf"
     done
 }
+
+# Lint the policy sources so that a SELint finding fails the build.
+do_selint() {
+    cd ${S}
+    selint -c ${UNPACKDIR}/selint.conf \
+        --source --recursive --summary --fail policy
+}
+addtask selint after do_compile before do_install
 
 do_compile() {
     oe_runmake bare
