@@ -64,7 +64,7 @@ index e44d82a88..130c62370 100644
  /var/lib/systemd/pstore(/.*)?	gen_context(system_u:object_r:systemd_pstore_var_lib_t,s0)
  /var/lib/systemd/rfkill(/.*)?	gen_context(system_u:object_r:systemd_rfkill_var_lib_t,s0)
  
-+/run/issue.d(/.*)? gen_context(system_u:object_r:systemd_ssh_issue_runtime_t,s0)
++/run/issue\.d(/.*)? gen_context(system_u:object_r:systemd_ssh_issue_runtime_t,s0)
 +
  /run/\.nologin[^/]*	--	gen_context(system_u:object_r:systemd_sessions_runtime_t,s0)
  /run/nologin	--	gen_context(system_u:object_r:systemd_sessions_runtime_t,s0)
